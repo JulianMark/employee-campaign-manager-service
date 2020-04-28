@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fundraising.employee.mapper.CampaignMapper">
+    <select id="obtainCampaign" resultType="com.fundraising.employee.service.http.CampaignResponse">
+      SELECT C.NAME , O.ID IDOSC, O.DESCRIPTION OSC, CT.ID IDTYPE, CT.DESCRIPTION TYPE
+      FROM CAMPAIGNS C
+      JOIN OSC O ON O.ID = C.ID_OSC
+      JOIN CAMPAIGN_TYPES CT ON CT.ID = C.ID_TYPE_CAMPAIGN
+      WHERE C.ID = #{idCampaign}
+    </select>
+</mapper>
