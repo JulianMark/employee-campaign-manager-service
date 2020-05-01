@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fundraising.employee.mapper.CampaignsEmployeeMapper">
+    <select id="obtainCampaignList" resultType="com.fundraising.employee.model.Campaign">
+      SELECT T.ID_CAMPAIGN idCampaign, T.ID_TYPE_EMPLOYEE idType, C.NAME name
+      FROM TEAMS T
+      JOIN CAMPAIGNS C ON C.ID = T.ID_CAMPAIGN
+      WHERE 1 = 1
+      AND T.FINAL_DATE IS NULL
+      AND T.ID_EMPLOYEE = #{idEmployee}
+    </select>
+</mapper>
