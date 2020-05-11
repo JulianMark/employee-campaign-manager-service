@@ -20,6 +20,7 @@ import java.util.stream.Stream;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
+@DisplayName("List Campaign Service")
 public class ObtainCampaignListServiceTest {
 
     private final Integer VALID_EMPLOYEE_ID = 1;
@@ -36,7 +37,7 @@ public class ObtainCampaignListServiceTest {
     @ArgumentsSource(ParamsArgsSrcIllegalArgsException.class)
     @DisplayName("When parameter is null or less zero should return 400 (Bad Request)")
     public void obtainCampaignList_IdEmployeeIsNullOrLessZero_ReturnsBadRequest(Integer invalidEmployeeId) {
-        CampaignService sut = new CampaignService(null, null);
+        CampaignService sut = new CampaignService(null, null, null);
 
         ResponseEntity<CampaignsEmployeeResponse> responseEntity = sut.obtainCampaignList(invalidEmployeeId);
 
@@ -47,7 +48,7 @@ public class ObtainCampaignListServiceTest {
     @DisplayName("When mapper throws Exception should return 500 (Internal Server Error)")
     public void obtainCampaignList_CampaignsMapperThrowException_ReturnsInternalServerError() {
         Function<Integer, ResponseEntity<CampaignsEmployeeResponse>> builder = param -> ResponseEntity.status(500).build();
-        CampaignService sut = new CampaignService(null, builder);
+        CampaignService sut = new CampaignService(null, builder, null);
 
         ResponseEntity<CampaignsEmployeeResponse> responseEntity = sut.obtainCampaignList(VALID_EMPLOYEE_ID);
 
@@ -58,7 +59,7 @@ public class ObtainCampaignListServiceTest {
     @DisplayName("When response is null should return 204 (No Content)")
     public void obtainCampaignList_CampaignsEmployeeResponseIsNull_ReturnsNoContent() {
         Function<Integer, ResponseEntity<CampaignsEmployeeResponse>> builder = param -> ResponseEntity.noContent().build();
-        CampaignService sut = new CampaignService(null, builder);
+        CampaignService sut = new CampaignService(null, builder, null);
 
         ResponseEntity<CampaignsEmployeeResponse> responseEntity = sut.obtainCampaignList(VALID_EMPLOYEE_ID);
 
@@ -71,7 +72,7 @@ public class ObtainCampaignListServiceTest {
         List<Campaign> campaignList = Arrays.asList(new Campaign(1,1,"City name"));
         Function<Integer, ResponseEntity<CampaignsEmployeeResponse>> builder = param
                 -> ResponseEntity.ok(new CampaignsEmployeeResponse(campaignList));
-        CampaignService sut = new CampaignService(null, builder);
+        CampaignService sut = new CampaignService(null, builder, null);
 
         ResponseEntity<CampaignsEmployeeResponse> responseEntity = sut.obtainCampaignList(VALID_EMPLOYEE_ID);
 

@@ -17,6 +17,7 @@ import java.util.stream.Stream;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+@DisplayName("Obtain Campaign Service")
 class ObtainCampaignServiceTest {
 
     private Integer VALID_CAMPAIGN_ID = 1;
@@ -32,7 +33,7 @@ class ObtainCampaignServiceTest {
     @ArgumentsSource(ParametersArgumentsSource.class)
     @DisplayName("When parameter is null or less zero should return 400 (Bad Request)")
     public void obtainCampaign_IdCampaignIsNullOrLessZero_ReturnsBadRequest(Integer idCampaign) {
-        CampaignService sut = new CampaignService(null,null);
+        CampaignService sut = new CampaignService(null,null, null);
 
         ResponseEntity<CampaignResponse> responseEntity = sut.obtainCampaign(idCampaign);
 
@@ -44,7 +45,7 @@ class ObtainCampaignServiceTest {
     public void obtainCampaign_CampaignMapperThrowException_ReturnsInternalServerError() {
         Function<Integer, ResponseEntity<CampaignResponse>> builder = param
                 -> ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new CampaignResponse());
-        CampaignService sut = new CampaignService(builder,null);
+        CampaignService sut = new CampaignService(builder,null, null);
 
         ResponseEntity<CampaignResponse> responseEntity = sut.obtainCampaign(VALID_CAMPAIGN_ID);
 
@@ -55,7 +56,7 @@ class ObtainCampaignServiceTest {
     @DisplayName("When response is null should return 204 (No Content)")
     public void obtainCampaign_CampaignResponseIsNull_ReturnsNoContent() {
         Function<Integer, ResponseEntity<CampaignResponse>> builder = param -> ResponseEntity.noContent().build();
-        CampaignService sut = new CampaignService(builder, null);
+        CampaignService sut = new CampaignService(builder, null, null);
 
         ResponseEntity<CampaignResponse> responseEntity = sut.obtainCampaign(VALID_CAMPAIGN_ID);
 
@@ -68,7 +69,7 @@ class ObtainCampaignServiceTest {
         CampaignResponse responseExpected = new CampaignResponse("City name", 1,
                 "OSC name", 1, "Type campaign", null);
         Function<Integer, ResponseEntity<CampaignResponse>> builder = param -> ResponseEntity.ok(responseExpected);
-        CampaignService sut = new CampaignService(builder, null);
+        CampaignService sut = new CampaignService(builder, null, null);
 
         ResponseEntity<CampaignResponse> responseEntity = sut.obtainCampaign(VALID_CAMPAIGN_ID);
 
