@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fundraising.employee.mapper.CampaignActiveMapper">
+    <update id="activeCampaign">
+      UPDATE ACTIVE_CAMPAIGNS
+      SET ID_CAMPAIGN = #{request.idCampaign} , ID_TYPE_EMPLOYEE = #{request.idType}
+      WHERE ID_EMPLOYEE = #{request.idEmployee}
+    </update>
+</mapper>
